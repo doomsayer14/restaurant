@@ -34,7 +34,7 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<UserDTO> getUserProfile(@PathVariable("userId") String userId) {
+    public ResponseEntity<UserDTO> getUserById(@PathVariable("userId") String userId) {
         User user = userService.getUserById(Long.parseLong(userId));
         UserDTO userDTO = userFacade.userToUserDTO(user);
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
@@ -50,12 +50,6 @@ public class UserController {
         User user = userService.updateUser(userDTO, principal);
         UserDTO userUpdated = userFacade.userToUserDTO(user);
         return new ResponseEntity<>(userUpdated, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{userId}")
-    public ResponseEntity<HttpStatus> deleteUser(@PathVariable("userId") String userId) {
-        userService.deleteUser(Long.parseLong(userId));
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

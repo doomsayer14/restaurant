@@ -19,7 +19,7 @@ public class Dish {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+    @Column(unique = true, nullable = false)
     private String title;
     @Column
     private String ingredients;
@@ -28,7 +28,7 @@ public class Dish {
     @Column
     private DishCategory dishCategory;
     @Column
-    private Money price = Money.zero(Monetary.getCurrency("UAH"));
+    private Double price;
     @ManyToOne(fetch = FetchType.EAGER)
     private Order order;
 }

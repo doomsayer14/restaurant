@@ -28,12 +28,11 @@ public class UserService {
     }
 
     public User createUser(SignupRequest userIn) {
-        User user = User.builder()
-                .firstname(userIn.getFirstname())
-                .lastname(userIn.getLastname())
-                .username(userIn.getUsername())
-                .password(passwordEncoder.encode(userIn.getPassword()))
-                .build();
+        User user = new User();
+        user.setFirstname(userIn.getFirstname());
+        user.setLastname(userIn.getLastname());
+        user.setUsername(userIn.getUsername());
+        user.setPassword(passwordEncoder.encode(userIn.getPassword()));
         user.getRoles().add(Role.CLIENT);
 
         try {
@@ -55,10 +54,6 @@ public class UserService {
         user.setLastname(userDTO.getLastname());
 
         return userRepository.save(user);
-    }
-
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
     }
 
     public User getCurrentUser(Principal principal) {

@@ -5,6 +5,7 @@ import com.example.restaurant.entity.Dish;
 import com.example.restaurant.exception.DishNotFoundException;
 import com.example.restaurant.repository.DishRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.javamoney.moneta.Money;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,6 @@ public class DishService {
     public Dish getDishById(Long id) {
         return dishRepository.findById(id)
                 .orElseThrow(() -> new DishNotFoundException("Dish cannot be found for id: " + id));
-
     }
 
     public Dish createDish(DishDTO dishDTO) {
@@ -28,6 +28,7 @@ public class DishService {
                 .title(dishDTO.getTitle())
                 .ingredients(dishDTO.getIngredients())
                 .description(dishDTO.getDescription())
+                .price(dishDTO.getPrice())
                 .build();
 
         log.info("Saving dish: {}", dish);
