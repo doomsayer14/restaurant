@@ -45,7 +45,7 @@ public class DishController {
         return new ResponseEntity<>(dishDTOList, HttpStatus.OK);
     }
 
-    @PostMapping("/admin/create")
+    @PostMapping("/manager/create")
     public ResponseEntity<Object> createDish(@Valid @RequestBody DishDTO dishDTO,
                                               BindingResult bindingResult) {
         ResponseEntity<Object> errors = responseErrorValidation.mapValidationService(bindingResult);

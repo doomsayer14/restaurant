@@ -28,6 +28,7 @@ public class DishService {
                 .title(dishDTO.getTitle())
                 .ingredients(dishDTO.getIngredients())
                 .description(dishDTO.getDescription())
+                .dishCategory(dishDTO.getDishCategory())
                 .price(dishDTO.getPrice())
                 .build();
 
