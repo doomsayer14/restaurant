@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.List;
 
 @Service
 public class OrderService {
@@ -57,9 +58,19 @@ public class OrderService {
         return getUserByPrincipal(principal);
     }
 
-    private User getUserByPrincipal(Principal principal) {
+    User getUserByPrincipal(Principal principal) {
         String username = principal.getName();
         return userRepository.findUserByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Username not found."));
+    }
+
+    public List<Order> getWaitingOrders() {
+        return orderRepository.findAllByOrderStatusEquals(OrderStatus.NONE);
+    }
+
+    public Order changeStatus(Long orderId, Integer status) {
+        Order order = getOrderById(orderId);
+        order.setOrderStatus(OrderStatus.values()[status]);
+        return orderRepository.save(order);
     }
 }

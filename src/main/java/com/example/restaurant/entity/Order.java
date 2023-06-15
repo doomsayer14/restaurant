@@ -6,9 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.javamoney.moneta.Money;
 
-import javax.money.Monetary;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -26,7 +24,7 @@ public class Order {
     @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "order")
     private List<Dish> dishList = new ArrayList<>();
     @Column
-    private Money price = Money.zero(Monetary.getCurrency("UAH"));
+    private Double price;
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
     @Column

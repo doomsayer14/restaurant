@@ -1,5 +1,6 @@
 package com.example.restaurant.controller;
 
+import com.example.restaurant.dto.DishDTO;
 import com.example.restaurant.dto.OrderDTO;
 import com.example.restaurant.entity.Order;
 import com.example.restaurant.facade.OrderFacade;
@@ -14,8 +15,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
+import java.util.stream.Collectors;
 
-@RestController("api/order")
+@RestController
+@RequestMapping("api/order")
 public class OrderController {
 
     @Autowired
@@ -54,9 +58,26 @@ public class OrderController {
         return new ResponseEntity<>(orderDTO, HttpStatus.OK);
     }
 
+    @GetMapping("/waiting")
+    public ResponseEntity<List<OrderDTO>> getWaitingOrders() {
+        List<OrderDTO> orderDTOList = orderService.getWaitingOrders()
+                .stream()
+                .map(orderFacade::orderToOrderDTO)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(orderDTOList, HttpStatus.OK);
+    }
+
+    @PostMapping("/change/{orderId}/{status}")
+    public ResponseEntity<OrderDTO> changeOrderStatus(@PathVariable String orderId,
+                                                      @PathVariable Integer status) {
+        Order order = orderService.changeStatus(Long.parseLong(orderId), status);
+        OrderDTO orderDTO = orderFacade.orderToOrderDTO(order);
+        return new ResponseEntity<>(orderDTO, HttpStatus.OK);
+    }
+
     @DeleteMapping("/{orderId}/{dishId}")
     public ResponseEntity<Object> removeDishFromOrder(@PathVariable String orderId,
-                                                 @PathVariable String dishId) {
+                                                      @PathVariable String dishId) {
         orderService.removeDishFromOrder(Long.parseLong(orderId), Long.parseLong(dishId));
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

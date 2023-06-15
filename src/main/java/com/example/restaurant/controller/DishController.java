@@ -58,7 +58,7 @@ public class DishController {
         return new ResponseEntity<>(createdDish, HttpStatus.OK);
     }
 
-    @DeleteMapping("/admin/{dishId}")
+    @DeleteMapping("/manager/{dishId}")
     public ResponseEntity<HttpStatus> deleteDish(@PathVariable("dishId") String dishId) {
         dishService.deleteDish(Long.parseLong(dishId));
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

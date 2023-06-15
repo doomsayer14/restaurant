@@ -5,7 +5,6 @@ import com.example.restaurant.entity.Dish;
 import com.example.restaurant.exception.DishNotFoundException;
 import com.example.restaurant.repository.DishRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.javamoney.moneta.Money;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -5,7 +5,6 @@ import com.example.restaurant.entity.User;
 import com.example.restaurant.entity.enums.OrderStatus;
 import lombok.Builder;
 import lombok.Data;
-import org.javamoney.moneta.Money;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ import java.util.List;
 public class OrderDTO {
     private Long id;
     private List<Dish> dishList;
-    private Money price;
+    private Double price;
     private User user;
     private OrderStatus orderStatus;
 }

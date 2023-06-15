@@ -29,6 +29,7 @@ public class UserService {
 
     public User createUser(SignupRequest userIn) {
         User user = new User();
+        user.setEmail(user.getEmail());
         user.setFirstname(userIn.getFirstname());
         user.setLastname(userIn.getLastname());
         user.setUsername(userIn.getUsername());
